@@ -6,4 +6,10 @@ const register = async function (req, res)
     res.json(result)
 }
 
-module.exports={register}
+const login = async function (req, res)
+{
+    const result= await userService.logUser(req.body)
+    res.json(result)
+}
+
+module.exports={register, login}

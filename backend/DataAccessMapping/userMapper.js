@@ -17,4 +17,20 @@ const createUser = async(data) =>
     }
 }
 
-module.exports = {createUser}
+const getUser = async(data) =>{
+    try{
+        const user1 = await user.findOne({where: {"USERNAME": data.USERNAME}})
+        if (user1)
+        {
+            return user1
+        }
+        else
+        {
+            return {failure: true}
+        }
+    }catch{
+        return {failure: true}
+    }
+}
+
+module.exports = {createUser, getUser}
