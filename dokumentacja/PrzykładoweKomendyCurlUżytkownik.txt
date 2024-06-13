@@ -1,3 +1,6 @@
+Za pomocą niniejszych komend możliwe jest testowanie działania backendu dla logiki użytkownika.
+
+
 Zarejestruj użytkownika:
 
 curl -X POST http://localhost:3000/user/register -H "Content-Type: application/json" -d '{"USERNAME":"JUMBO", "PASSWORD":"HARDTOCRACK", "EMAIL":"goodemail@sqli.te", "FULLNAME": "Dalai Lama"}'

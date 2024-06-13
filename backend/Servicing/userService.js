@@ -78,7 +78,7 @@ const compareHash = async (data, user) => {
         .then(match =>{
             if (match)
             {
-                return {success: true, username: user.USERNAME}
+                return {success: true, id: user.id}
             }
             else
             {

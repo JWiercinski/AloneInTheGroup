@@ -1,0 +1,21 @@
+W związku ze znaczącym wzrostem liczby third-party vendors, oferujących
+klucze do gier na rozmaite platformy, jednak czyniące to na zasadach
+grey market (oficjalnie legalnych, lecz mimo to dość wątpliwych pod względem
+prawnym praktyk), w niniejszym podejściu zaproponowano prototyp aplikacji
+stanowiącej, w zamierzeniu, autoryzowany vendor do sprzedaży kluczy. 
+
+Celem projektu było utworzenie sprawnej aplikacji, stanowiącej storefront
+sprzedający klucze do gier, na nieistniejącą platformę gamingową Mist.
+W rezultacie, aplikacja jest funkcjonalnym prototypem third-party vendor,
+w zamyśle o odpowiedniej wcześniejszej autoryzacji danej platformy.
+
+Wynikiem projektu, w związku z ograniczonym składem grupy (tj wyłącznie
+jedna osoba), jest utworzenie wyłącznie podstawowych, nieodzownych elementów
+aplikacji internetowej - jakimi są rejestracja i logowanie, wyświetlenie
+dostępnych na sprzedaż produktów, wyświetlenie kluczy do zakupionych gier
+oraz sam zakup dla użytkownika-kupca, a także rejestracja i logowanie, dodanie, usunięcie i modyfikacja oferowanych produktów dla przypadku
+użytkownika-dewelopera.
+
+W przeciwieństwie do projektu TenderWeb, podział kodu w obrębie warstw 
+backendowych skupia się na rozróżnieniu funkcjonalności dla potencjalnego
+kupującego oraz potencjalnego sprzedawcy.

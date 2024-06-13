@@ -1,0 +1,10 @@
+Za pomocą niniejszych komend możliwe jest testowanie działania backendu dla logiki dewelopera.
+
+
+Zarejestruj dewelopera:
+
+curl -X POST http://localhost:3000/dev/register -H "Content-Type: application/json" -d '{"DEVUSERNAME":"TheGoodCompanyv2", "PASSWORD":"HARDTOCRACK", "STUDIONAME":"The Good COMPANY", "EMAIL":"goodcompany@uj.it", "BANKACCOUNT":"PL123456789012", "CITY":"Strzebrzeszyn", "COUNTRY":"POLAND", "PHONE":"+123456789"}'
+
+Zaloguj dewelopera:
+
+curl -X POST http://localhost:3000/dev/login -H "Content-Type: application/json" -d '{"DEVUSERNAME":"TheGoodCompanyv2", "PASSWORD":"HARDTOCRACK"}'

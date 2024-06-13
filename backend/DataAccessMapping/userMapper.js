@@ -2,6 +2,7 @@ const db = require("../DatabaseInitialization/sqliteInitializer")
 const user = db.user
 const transaction = db.transaction
 const purchase = db.purchase
+const game = db.game
 const Op =  db.Sequelize.Op
 
 const createUser = async(data) =>
@@ -30,6 +31,23 @@ const getUser = async(data) =>{
         }
     }catch{
         return {failure: true}
+    }
+}
+
+const getBoughtGames = async(data) =>
+{
+    try
+    {
+        const result = await purchase.findAll({
+            attributes: "GAMEKEY", include :[{
+                model: game, attributes: "NAME"
+            }], where: {"USERId": data.id}
+        })
+        return result
+    }
+    catch
+    {
+        return {success: false}
     }
 }
 

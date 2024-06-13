@@ -1,0 +1,27 @@
+Niniejsza aplikacja internetowa została stworzona w oparciu o model
+klient-serwer.
+
+Aplikacja serwerowa została napisana w całości w języku JavaScript,
+z wykorzystaniem technologii Node.js oraz React. Do zarządzania bazą danych
+użyto biblioteki Sequelize, natomiast sama baza danych użyta w projekcie to
+Sqlite3.
+Serwer posiada architekturę warstwową, w ramach której istnieje wyraźny
+podział plików w zależności od ich przeznaczenia:
+
+> Routing pozwala na uruchomienie odpowiednich funkcji z kontrolera w 
+zależności od otrzymanego w zapytaniu adresu url.
+
+> Controlling zawiera logikę kontrolera - wywołuje odpowiednie serwisy, i po
+wykonaniu zadań wysyła odpowiedź w formie obiektu JSON.
+
+> Servicing dokonuje walidacji zapytań (tam gdzie to konieczne), wywołań 
+funkcji pomocniczych, wymaganych logicznie przed dokonaniem operacji, a 
+także przekazuje odpowiednio przygotowane do warstwy mapowania z bazy 
+danych.
+
+>DataAccessMapping to warstwa, w której dokonuje się operacje na bazie
+danych, z wykorzystaniem narzędzia ORM jakim jest Sequelize.
+
+>DatabaseInitialization zawiera definicje modeli bazy danych oraz logikę
+poszczególnych tabel, relacji i przechowywania danych. Tam też zapisana jest
+baza SQLite.
