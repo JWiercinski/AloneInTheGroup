@@ -1,13 +1,14 @@
 const userMapping = require("../DataAccessMapping/userMapper")
 const bcrypt = require("bcrypt")
 const {getUser} = require("../DataAccessMapping/userMapper");
+const utilityService=require("./utilityService")
 const salting = 10
 
 const addUser= async (data) => {
     var result = {}
     const check = verifyUsers(data)
     if (check === true) {
-        newdata=await hashPassword(data)
+        newdata=await utilityService.hashPass(data)
         console.log(newdata)
         if ("failure" in newdata)
         {
@@ -29,7 +30,7 @@ const logUser = async (data) =>{
     user=await userMapping.getUser(data)
     if ("failure" in user === false)
     {
-        return await compareHash(data, user)
+        return await utilityService.comparePass(data, user)
     }
     else
     {
@@ -59,31 +60,4 @@ function verifyUsers(data)
     return ok
 }
 
-const hashPassword = async(data) =>
-{
-    try
-    {
-        const hashedPass = await bcrypt.hash(data.PASSWORD, salting)
-        data.PASSWORD=hashedPass
-        return data
-    }
-    catch
-    {
-        return {failure: true}
-    }
-}
-
-const compareHash = async (data, user) => {
-    return bcrypt.compare(data.PASSWORD, user.PASSWORD)
-        .then(match =>{
-            if (match)
-            {
-                return {success: true, id: user.id}
-            }
-            else
-            {
-                return {success: false, problems: "Dane logowania nie są poprawne."}
-            }
-        })
-}
 module.exports={addUser, logUser}

@@ -8,3 +8,7 @@ curl -X POST http://localhost:3000/dev/register -H "Content-Type: application/js
 Zaloguj dewelopera:
 
 curl -X POST http://localhost:3000/dev/login -H "Content-Type: application/json" -d '{"DEVUSERNAME":"TheGoodCompanyv2", "PASSWORD":"HARDTOCRACK"}'
+
+Dodaj grę na platformę:
+
+curl -X POST http://localhost:3000/dev/game/new -H "Content-Type: application/json" -d '{"NAME": "Big Letdown", "DESCRIPTION": "Total failure awaits in this dreadful first person cleaning simulator. Prepare for your first job after college!", "PRICE": 20.19, "RELEASEDATE": "2024-06-12", "DEVELOPERId": 1}'

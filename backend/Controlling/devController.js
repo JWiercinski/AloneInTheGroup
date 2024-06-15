@@ -10,4 +10,9 @@ const loginDev = async function (req, res) {
     res.json(result)
 }
 
-module.exports={loginDev,registerDev}
+const addGame = async function (req, res){
+    const result = await devService.addGame(req.body)
+    res.json(result)
+}
+
+module.exports={loginDev,registerDev,addGame}

@@ -1,34 +1,6 @@
 const devMapping = require("../DataAccessMapping/devMapper")
+const utilityService = require("./utilityService")
 const bcrypt = require("bcrypt")
-const salting = 12
-const hashPass = async(data) =>
-{
-    try
-    {
-        const hashedPass = await bcrypt.hash(data.PASSWORD, salting)
-        data.PASSWORD=hashedPass
-        return data
-    }
-    catch
-    {
-        return {failure: true}
-    }
-}
-
-const comparePass= async (data, dev) => {
-    return bcrypt.compare(data.PASSWORD, dev.PASSWORD)
-        .then(match =>{
-            if (match)
-            {
-                return {success: true, id: dev.id}
-            }
-            else
-            {
-                return {success: false, problems: "Dane logowania nie są poprawne."}
-            }
-        }
-        )
-}
 
 function verifyDev(data)
 {
@@ -58,7 +30,7 @@ const logDev = async (data) =>{
     console.log(dev)
     if ("failure" in dev === false)
     {
-        return await comparePass(data, dev)
+        return await utilityService.comparePass(data, dev)
     }
     else
     {
@@ -71,7 +43,7 @@ const setDev = async (data) =>
     var result = {}
     const check = verifyDev(data)
     if (check === true) {
-        newdata=await hashPass(data)
+        newdata=await utilityService.hashPass(data)
         if ("failure" in newdata)
         {
             result ={success: false, problems:"Nie udało się zhashować hasła..."}
@@ -88,4 +60,26 @@ const setDev = async (data) =>
     return result
 }
 
-module.exports={logDev, setDev}
+const addGame = async (data)=>
+{
+    var ok = false
+    if ("NAME" in data && "DESCRIPTION" in data && "PRICE" in data && "RELEASEDATE" in data && "DEVELOPERId" in data) {
+        if (data.NAME && data.DESCRIPTION && data.PRICE && data.RELEASEDATE && data.DEVELOPERId)
+        {
+            const priceRegex =  /^-?\d+(\.\d{1,2})?$/
+            isok=await utilityService.isDate(data.RELEASEDATE)
+            if (priceRegex.test(data.PRICE) && isok===true)
+            {
+                result = await devMapping.setGame(data)
+                return result
+            }
+            else
+            {
+                return ok
+            }
+        }
+    }
+    return ok
+}
+
+module.exports={logDev, setDev, addGame}

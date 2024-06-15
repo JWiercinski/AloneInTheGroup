@@ -1,5 +1,6 @@
 const db = require("../DatabaseInitialization/sqliteInitializer")
 const dev = db.developer
+const game = db.game
 
 const createDev = async(data) =>
 {
@@ -29,5 +30,17 @@ const getDev = async(data) =>{
         return {failure: true}
     }
 }
-module.exports={createDev, getDev}
+
+const setGame = async(data) =>{
+    try
+    {
+        await game.create(data)
+        return {success: true}
+    }
+    catch
+    {
+        return {success: false, problems: "Nie udało się stworzyć gry"}
+    }
+}
+module.exports={createDev, getDev, setGame}
 
