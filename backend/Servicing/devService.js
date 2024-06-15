@@ -82,4 +82,21 @@ const addGame = async (data)=>
     return ok
 }
 
-module.exports={logDev, setDev, addGame}
+const getMyGames = async(data) =>{
+        const result=await devMapping.fetchMyGames(data)
+        if (result.length>0) {
+            return result
+        }
+        else
+        {
+            return {failure: true}
+        }
+}
+
+const getMyGame = async (did, gid)=>
+{
+    const result = await devMapping.fetchMyGame(did, gid)
+    return result
+}
+
+module.exports={logDev, setDev, addGame, getMyGames, getMyGame}

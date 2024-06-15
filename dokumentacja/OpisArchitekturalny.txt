@@ -19,9 +19,9 @@ funkcji pomocniczych, wymaganych logicznie przed dokonaniem operacji, a
 także przekazuje odpowiednio przygotowane do warstwy mapowania z bazy 
 danych.
 
->DataAccessMapping to warstwa, w której dokonuje się operacje na bazie
+> DataAccessMapping to warstwa, w której dokonuje się operacje na bazie
 danych, z wykorzystaniem narzędzia ORM jakim jest Sequelize.
 
->DatabaseInitialization zawiera definicje modeli bazy danych oraz logikę
+> DatabaseInitialization zawiera definicje modeli bazy danych oraz logikę
 poszczególnych tabel, relacji i przechowywania danych. Tam też zapisana jest
 baza SQLite.

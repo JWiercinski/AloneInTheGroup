@@ -12,3 +12,22 @@ curl -X POST http://localhost:3000/dev/login -H "Content-Type: application/json"
 Dodaj grę na platformę:
 
 curl -X POST http://localhost:3000/dev/game/new -H "Content-Type: application/json" -d '{"NAME": "Big Letdown", "DESCRIPTION": "Total failure awaits in this dreadful first person cleaning simulator. Prepare for your first job after college!", "PRICE": 20.19, "RELEASEDATE": "2024-06-12", "DEVELOPERId": 1}'
+
+Pobierz dane wszystkich własnych gier:
+
+curl -X GET http://localhost:3000/dev/game/1 
+
+Pobierz dane poszczególnej danej gry:
+
+curl -X GET http://localhost:3000/dev/game/1
+
+Zmodyfikuj dane gry:
+
+
+
+Sprawdź sprzedaż danej gry:
+
+
+
+Wycofaj grę ze sprzedaży:
+

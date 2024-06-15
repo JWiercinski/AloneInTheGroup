@@ -8,3 +8,10 @@ curl -X POST http://localhost:3000/user/register -H "Content-Type: application/j
 Zaloguj użytkownika:
 
 curl -X POST http://localhost:3000/user/login -H "Content-Type: application/json" -d '{"USERNAME":"JUMBO", "PASSWORD":"HARDTOCRACK"}'
+
+Zakup zawartość koszyka:
+
+
+
+Zobacz listę zakupionych produktów:
+
