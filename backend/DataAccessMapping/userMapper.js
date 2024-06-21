@@ -51,4 +51,12 @@ const getBoughtGames = async(data) =>
     }
 }
 
-module.exports = {createUser, getUser}
+const createTransaction = async (Tdata) =>{
+
+}
+
+const createPurchase = async (Pdata) =>{
+
+}
+
+module.exports = {createUser, getUser, createTransaction, createPurchase}

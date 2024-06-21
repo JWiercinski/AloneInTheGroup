@@ -58,14 +58,57 @@ const fetchMyGames = async(data) =>{
 const fetchMyGame = async (dID, gID) =>{
     try
     {
-        const game1 = await game.findAll({where:{"id": gID}})
+        const game1 = await game.findOne({where:{"id": gID}})
         console.log(game1.id)
-        if (game1[0].DEVELOPERId == dID)
+        if (game1.DEVELOPERId == dID)
             return game1
         else
             return {success: false, message: "Ta gra nie jest przypisana do Twojego konta"}
     }
     catch {return {success: false}}
 }
-module.exports={createDev, getDev, setGame, fetchMyGames, fetchMyGame}
+
+const modifyGame = async (data, did, gid)=>{
+    const game1= await fetchMyGame(did, gid)
+    if (game1.success === undefined)
+    {
+        console.log("JEJ")
+        if (data.NAME)
+        {
+            game1.NAME=data.NAME
+            game1.save()
+        }
+        if (data.DESCRIPTION)
+        {
+            game1.NAME=data.NAME
+            game1.save()
+        }
+        if (data.PRICE)
+        {
+            game1.PRICE=data.PRICE
+            game1.save()
+        }
+        if (data.RELEASEDATE)
+        {
+            game1.RELEASEDATE=data.RELEASEDATE
+            game1.save()
+        }
+    }
+    return game1
+}
+
+const deleteGame = async (did, gid) =>
+{
+    const game0=await fetchMyGame(did, gid)
+    if (game0.success===undefined)
+    {
+        game0.destroy()
+        return {success: true}}
+    else
+    {
+        return {success: false}
+    }
+}
+
+module.exports={createDev, getDev, setGame, fetchMyGames, fetchMyGame, modifyGame, deleteGame}
 

@@ -2,7 +2,7 @@ Niniejsza aplikacja internetowa została stworzona w oparciu o model
 klient-serwer.
 
 Aplikacja serwerowa została napisana w całości w języku JavaScript,
-z wykorzystaniem technologii Node.js oraz React. Do zarządzania bazą danych
+z wykorzystaniem technologii Node.js i Express. Do zarządzania bazą danych
 użyto biblioteki Sequelize, natomiast sama baza danych użyta w projekcie to
 Sqlite3.
 Serwer posiada architekturę warstwową, w ramach której istnieje wyraźny
@@ -25,3 +25,16 @@ danych, z wykorzystaniem narzędzia ORM jakim jest Sequelize.
 > DatabaseInitialization zawiera definicje modeli bazy danych oraz logikę
 poszczególnych tabel, relacji i przechowywania danych. Tam też zapisana jest
 baza SQLite.
+
+
+Aplikacja kliencka wykonana została w technice multi-page, z wykorzystaniem
+technologii React. Tak jak aplikacja serwerowa, posiada ona podział na
+warstwy - w tym przypadku Pages, Components oraz Providers.
+
+> Pages zawiera strony z poszczególnymi elementami oraz funkcjami do ich
+zarządzaniem.
+
+> Components posiada pomniejsze elementy używane na wielu różnych stronach.
+
+> Providers zajmuje się tworzeniem kontekstu aplikacji, który następnie 
+zostaje wykorzystany w całym obrębie aplikacji.

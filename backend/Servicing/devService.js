@@ -1,24 +1,21 @@
 const devMapping = require("../DataAccessMapping/devMapper")
 const utilityService = require("./utilityService")
-const bcrypt = require("bcrypt")
 
-function verifyDev(data)
+const verifyDev= async(data) =>
 {
     var ok = false
     if ("DEVUSERNAME" in data && "PASSWORD" in data && "EMAIL" in data && "STUDIONAME" in data && "BANKACCOUNT" in data && "CITY" in data && "COUNTRY" in data && "PHONE" in data)
     {
         if (data.DEVUSERNAME && data.PASSWORD && data.EMAIL && data.STUDIONAME && data.BANKACCOUNT && data.CITY && data.COUNTRY && data.PHONE)
         {
-            const emailRegex = /.+@.+\..+/;
+            ok = await utilityService.isEmail(data.EMAIL)
             const phoneRegex = /^[+]?[0-9]+$/
-            if (emailRegex.test(data.EMAIL) && data.BANKACCOUNT.length>7 && data.BANKACCOUNT.length<35 && phoneRegex.test(data.PHONE) && data.PHONE.length<16 && data.PHONE.length>2) {
+            if (ok ===true && data.BANKACCOUNT.length>7 && data.BANKACCOUNT.length<35 && phoneRegex.test(data.PHONE) && data.PHONE.length<16 && data.PHONE.length>2) {
                 ok = true
-                return ok
             }
             else
             {
                 ok=false
-                return ok
             }
         }
     }
@@ -27,7 +24,6 @@ function verifyDev(data)
 
 const logDev = async (data) =>{
     dev=await devMapping.getDev(data)
-    console.log(dev)
     if ("failure" in dev === false)
     {
         return await utilityService.comparePass(data, dev)
@@ -41,7 +37,8 @@ const logDev = async (data) =>{
 const setDev = async (data) =>
 {
     var result = {}
-    const check = verifyDev(data)
+    const check = await verifyDev(data)
+    console.log(check)
     if (check === true) {
         newdata=await utilityService.hashPass(data)
         if ("failure" in newdata)
@@ -66,9 +63,9 @@ const addGame = async (data)=>
     if ("NAME" in data && "DESCRIPTION" in data && "PRICE" in data && "RELEASEDATE" in data && "DEVELOPERId" in data) {
         if (data.NAME && data.DESCRIPTION && data.PRICE && data.RELEASEDATE && data.DEVELOPERId)
         {
-            const priceRegex =  /^-?\d+(\.\d{1,2})?$/
+            isP = await utilityService.isPrice(data.PRICE)
             isok=await utilityService.isDate(data.RELEASEDATE)
-            if (priceRegex.test(data.PRICE) && isok===true)
+            if (isP===true && isok===true)
             {
                 result = await devMapping.setGame(data)
                 return result
@@ -99,4 +96,24 @@ const getMyGame = async (did, gid)=>
     return result
 }
 
-module.exports={logDev, setDev, addGame, getMyGames, getMyGame}
+const modifyGame = async (data, did, gid)=>{
+    if (data.PRICE)
+    {
+        cool = await utilityService.isPrice(data.PRICE)
+        if (cool !== true)
+        {
+            data.PRICE=""
+        }
+        cool2 = await utilityService.isDate(data.RELEASEDATE)
+        if (cool2 !== true)
+        {
+            data.RELEASEDATE=""
+        }
+    }
+    return await devMapping.modifyGame(data, did, gid)}
+
+const dropGame = async (did, gid)=>{
+    return await devMapping.deleteGame(did, gid)
+}
+
+module.exports={logDev, setDev, addGame, getMyGames, getMyGame, modifyGame, dropGame}

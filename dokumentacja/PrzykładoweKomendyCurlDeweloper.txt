@@ -21,8 +21,9 @@ Pobierz dane poszczególnej danej gry:
 
 curl -X GET http://localhost:3000/dev/game/1
 
-Zmodyfikuj dane gry:
+Zmodyfikuj dane gry (możliwość zmiany każdego elementu poza DEVELOPERId):
 
+curl -X PUT -H "Content-Type: application/json" -d '{"NAME":"", "PRICE":12.555}' http://localhost:3000/dev/game/1/1
 
 
 Sprawdź sprzedaż danej gry:
@@ -31,3 +32,4 @@ Sprawdź sprzedaż danej gry:
 
 Wycofaj grę ze sprzedaży:
 
+curl -X DELETE http://localhost:3000/dev/game/1/1

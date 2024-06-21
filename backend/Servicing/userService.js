@@ -1,12 +1,9 @@
 const userMapping = require("../DataAccessMapping/userMapper")
-const bcrypt = require("bcrypt")
-const {getUser} = require("../DataAccessMapping/userMapper");
 const utilityService=require("./utilityService")
-const salting = 10
 
 const addUser= async (data) => {
     var result = {}
-    const check = verifyUsers(data)
+    const check = await verifyUsers(data)
     if (check === true) {
         newdata=await utilityService.hashPass(data)
         console.log(newdata)
@@ -38,26 +35,21 @@ const logUser = async (data) =>{
     }
 }
 
-function verifyUsers(data)
+const verifyUsers= async(data)=>
 {
     var ok = false
     if ("USERNAME" in data && "PASSWORD" in data && "EMAIL" in data && "FULLNAME" in data)
     {
         if (data.USERNAME && data.PASSWORD && data.EMAIL && data.FULLNAME)
         {
-            const emailRegex = /.+@.+\..+/;
-            if (emailRegex.test(data.EMAIL)) {
-                ok = true
-                return ok
-            }
-            else
-            {
-                ok=false
-                return ok
-            }
+            ok=await utilityService.isEmail(data.EMAIL)
         }
     }
     return ok
 }
 
-module.exports={addUser, logUser}
+const handlePurchase= async(data)=>{
+
+}
+
+module.exports={addUser, logUser, handlePurchase}

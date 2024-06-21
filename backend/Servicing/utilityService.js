@@ -35,4 +35,10 @@ const isDate=async (dateMaybe) => {
     return datetool.isValid(parsed)
 }
 
-module.exports={comparePass, hashPass, isDate}
+const isPrice= async(checked)  =>{
+    const priceRegex =  /^-?\d+(\.\d{1,2})?$/
+    return priceRegex.test(checked)
+}
+
+const isEmail= async(checked) =>{const emailReqex=/.+@.+\..+/; return emailReqex.test(checked)}
+module.exports={comparePass, hashPass, isDate, isPrice, isEmail}

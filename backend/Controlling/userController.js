@@ -12,4 +12,9 @@ const loginUser = async function (req, res)
     res.json(result)
 }
 
-module.exports={registerUsew, loginUser}
+const handleTransaction = async function (req, res)
+{
+
+}
+
+module.exports={registerUsew, loginUser, handleTransaction}
