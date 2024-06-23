@@ -8,6 +8,8 @@ import {TypeProvider} from "./Providers/TypeProvider";
 import IdProvider from "./Providers/IdProvider";
 import UserLogin from "./Pages/UserLogin";
 import DevLogin from "./Pages/DevLogin";
+import UserRegister from "./Pages/UserRegister";
+import DevRegister from "./Pages/DevRegister";
 
 function App()
 {
@@ -24,6 +26,8 @@ function App()
                                 <Route path="/account/hub" element={<AccountHub/>}></Route>
                                 <Route path="/account/hub/user/login" element={<UserLogin/>}></Route>
                                 <Route path="/account/hub/dev/login" element={<DevLogin/>}></Route>
+                                <Route path="/account/hub/user/register" element={<UserRegister/>}></Route>
+                                <Route path="/account/hub/dev/register" element={<DevRegister/>}></Route>
                             </Routes>
                         </BrowserRouter>
                     </IdProvider>

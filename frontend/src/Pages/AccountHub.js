@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import {LoginContext} from "../Providers/LoginProvider";
 import {TypeContext} from "../Providers/TypeProvider";
 import {IdContext} from "../Providers/IdProvider";
+import LoggedInBar from "../Components/LoggedInBar";
 
 function AccountHub() {
         const {login, setLogin} = React.useContext(LoginContext)
@@ -40,6 +41,7 @@ function AccountHub() {
         }
     return (
         <div className="AccountHub">
+                <LoggedInBar></LoggedInBar>
             <ButtonsTop/>
             <h1>Portal Użytkownika</h1>
             <p>Wybierz odpowiedni do swoich potrzeb element</p>

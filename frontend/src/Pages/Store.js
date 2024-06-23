@@ -1,6 +1,7 @@
 import React from "react";
 import ButtonsTop from "../Components/buttonsTop";
 import axios from "axios";
+import LoggedInBar from "../Components/LoggedInBar";
 
 function Store() {
     const [products, setProducts] = React.useState([]);
@@ -17,6 +18,7 @@ function Store() {
     }, []);
     return (
         <div className="Store">
+            <LoggedInBar/>
             <ButtonsTop/>
             <h1>Produkty:</h1>
             <p></p>
