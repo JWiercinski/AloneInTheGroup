@@ -40,7 +40,7 @@ const verifyUsers= async(data)=>
     var ok = false
     if ("USERNAME" in data && "PASSWORD" in data && "EMAIL" in data && "FULLNAME" in data)
     {
-        if (data.USERNAME && data.PASSWORD && data.EMAIL && data.FULLNAME)
+        if (data.USERNAME && data.PASSWORD && data.PASSWORD.length>9 && data.PASSWORD.length<51 && data.USERNAME.length>4 && data.USERNAME.length<30 && data.EMAIL && data.FULLNAME)
         {
             ok=await utilityService.isEmail(data.EMAIL)
         }

@@ -6,7 +6,7 @@ const verifyDev= async(data) =>
     var ok = false
     if ("DEVUSERNAME" in data && "PASSWORD" in data && "EMAIL" in data && "STUDIONAME" in data && "BANKACCOUNT" in data && "CITY" in data && "COUNTRY" in data && "PHONE" in data)
     {
-        if (data.DEVUSERNAME && data.PASSWORD && data.EMAIL && data.STUDIONAME && data.BANKACCOUNT && data.CITY && data.COUNTRY && data.PHONE)
+        if (data.DEVUSERNAME && data.PASSWORD.length>9 && data.PASSWORD.length<51 && data.DEVUSERNAME.length>4 && data.DEVUSERNAME.length<30 && data.PASSWORD && data.EMAIL && data.STUDIONAME && data.BANKACCOUNT && data.CITY && data.COUNTRY && data.PHONE)
         {
             ok = await utilityService.isEmail(data.EMAIL)
             const phoneRegex = /^[+]?[0-9]+$/
@@ -97,13 +97,14 @@ const getMyGame = async (did, gid)=>
 }
 
 const modifyGame = async (data, did, gid)=>{
-    if (data.PRICE)
-    {
+    if (data.PRICE) {
         cool = await utilityService.isPrice(data.PRICE)
-        if (cool !== true)
-        {
-            data.PRICE=""
+        if (cool !== true) {
+            data.PRICE = ""
         }
+    }
+    if (data.RELEASEDATE)
+    {
         cool2 = await utilityService.isDate(data.RELEASEDATE)
         if (cool2 !== true)
         {
