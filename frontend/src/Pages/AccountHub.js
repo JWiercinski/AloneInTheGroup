@@ -31,28 +31,18 @@ function AccountHub() {
                         setIsLoggedIn(true)
                 }
         }, [login, type, id, isLoggedIn, devLoggedIn, userLoggedIn]);
-        const logout = async (event) =>{event.preventDefault()
-                setLogin(null)
-                setType(null)
-                setId(null)
-                setUserLoggedIn(false)
-                setDevLoggedIn(false)
-                window.location.reload()
-        }
     return (
         <div className="AccountHub">
+                <ButtonsTop/>
                 <LoggedInBar></LoggedInBar>
-            <ButtonsTop/>
             <h1>Portal Użytkownika</h1>
             <p>Wybierz odpowiedni do swoich potrzeb element</p>
             <h2 hidden={devLoggedIn}>Konto użytkownika klasycznego</h2>
             <Link to="user/register"><button hidden={isLoggedIn}>Zarejestruj się</button></Link>
             <Link to="user/login"><button hidden={isLoggedIn}>Zaloguj się</button></Link>
-                <button hidden={!userLoggedIn} onClick={logout}>Wyloguj się</button>
                 <h2 hidden={userLoggedIn}>Konto deweloperskie</h2>
             <Link to="dev/register"><button hidden={isLoggedIn}>Zarejestruj się</button></Link>
             <Link to="dev/login"><button hidden={isLoggedIn}>Zaloguj się</button></Link>
-                <button hidden={!devLoggedIn} onClick={logout}>Wyloguj się</button>
         </div>
 )
     ;

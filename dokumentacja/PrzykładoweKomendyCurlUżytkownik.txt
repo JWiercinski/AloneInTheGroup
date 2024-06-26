@@ -11,7 +11,7 @@ curl -X POST http://localhost:3000/user/login -H "Content-Type: application/json
 
 Zakup zawartość koszyka:
 
-
+curl -X POST -H "Content-Type: application/json" -d '{"USERId": 1, "METHOD": "PAYPAL", "AMOUNT": 141.33, "PURCHASE": [{"GAMEID": 1, "QUANTITY": 4, "SINGLEPRICE": 20.19}, {"GAMEID": 2, "QUANTITY": 3, "SINGLEPRICE": 20.19}]}' http://localhost:3000/user/purchase
 
 Zobacz listę zakupionych produktów:
 

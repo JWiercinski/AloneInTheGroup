@@ -1,5 +1,6 @@
 const userMapping = require("../DataAccessMapping/userMapper")
 const utilityService=require("./utilityService")
+const commonMapping = require("../DataAccessMapping/commonMapper")
 
 const addUser= async (data) => {
     var result = {}
@@ -48,8 +49,54 @@ const verifyUsers= async(data)=>
     return ok
 }
 
-const handlePurchase= async(data)=>{
-
+const verifyPrices= async(data) =>{
+    var success = true
+    var fullprice = 0
+    for (const data2 of data.PURCHASE)
+    {
+        var x = await commonMapping.selectGameById(data2.GAMEID)
+        var partprice=data2.SINGLEPRICE*data2.QUANTITY
+        fullprice=fullprice+partprice
+        if (data2.SINGLEPRICE !== x.PRICE)
+        {
+            success = false
+        }
+    }
+    if (fullprice !== data.AMOUNT || fullprice===0)
+    {
+        success = false
+    }
+    return success
+}
+const handlePurchase= async(data)=> {
+    if (data.AMOUNT !== undefined && data.METHOD !== undefined && data.USERId !== undefined) {
+        const paydata = {
+            PRICE: data.AMOUNT,
+            METHOD: data.METHOD,
+            USERId: data.USERId
+        }
+        const nevpurchase = await userMapping.createTransaction(paydata)
+        for (const data2 of data.PURCHASE)
+        {
+            for (let q=0; q<data2.QUANTITY; q++)
+            {
+                const gamekey= await utilityService.generateKey()
+            const perchdata= {
+                SELLINGPRICE: data2.SINGLEPRICE,
+                GAMEKEY: gamekey,
+                USERId: data.USERId,
+                GAMEId: data2.GAMEID,
+                TRANSACTIONId: nevpurchase.id
+            }
+            await userMapping.createPurchase(perchdata)
+            }
+        }
+    return {success: true}
+    }
+    else
+        {
+            return {success: false, problems: "Brakuje odpowiednich pól w przesłanych danych"}
+        }
 }
 
-module.exports={addUser, logUser, handlePurchase}
+module.exports={addUser, logUser, verifyPrices, handlePurchase}

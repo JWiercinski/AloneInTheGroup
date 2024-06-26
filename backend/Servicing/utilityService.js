@@ -40,5 +40,14 @@ const isPrice= async(checked)  =>{
     return priceRegex.test(checked)
 }
 
+const generateKey = async() =>{
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ĄŚŻŹĆÐƏΩŒĘ®™¥↑↔ÓÞÆŊ•';
+    let randomString = '';
+    for (let i = 0; i < 20; i++) {
+        randomString += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return randomString;
+}
+
 const isEmail= async(checked) =>{const emailReqex=/.+@.+\..+/; return emailReqex.test(checked)}
-module.exports={comparePass, hashPass, isDate, isPrice, isEmail}
+module.exports={comparePass, hashPass, isDate, isPrice, isEmail, generateKey}

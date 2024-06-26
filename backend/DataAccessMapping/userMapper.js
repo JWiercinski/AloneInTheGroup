@@ -52,11 +52,11 @@ const getBoughtGames = async(data) =>
 }
 
 const createTransaction = async (Tdata) =>{
-
+    return await transaction.create(Tdata)
 }
 
 const createPurchase = async (Pdata) =>{
-
+return await purchase.create(Pdata)
 }
 
 module.exports = {createUser, getUser, createTransaction, createPurchase}

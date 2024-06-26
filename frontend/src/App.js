@@ -10,6 +10,9 @@ import UserLogin from "./Pages/UserLogin";
 import DevLogin from "./Pages/DevLogin";
 import UserRegister from "./Pages/UserRegister";
 import DevRegister from "./Pages/DevRegister";
+import BasketProvider from "./Providers/BasketProvider";
+import Basket from "./Pages/Basket";
+import Payment from "./Pages/Payment";
 
 function App()
 {
@@ -19,17 +22,21 @@ function App()
             <LoginProvider>
                 <TypeProvider>
                     <IdProvider>
-                        <BrowserRouter>
-                            <Routes>
-                                <Route path="/" element={<Hub/>}></Route>
-                                <Route path="/store" element={<Store/>}></Route>
-                                <Route path="/account/hub" element={<AccountHub/>}></Route>
-                                <Route path="/account/hub/user/login" element={<UserLogin/>}></Route>
-                                <Route path="/account/hub/dev/login" element={<DevLogin/>}></Route>
-                                <Route path="/account/hub/user/register" element={<UserRegister/>}></Route>
-                                <Route path="/account/hub/dev/register" element={<DevRegister/>}></Route>
-                            </Routes>
-                        </BrowserRouter>
+                        <BasketProvider>
+                            <BrowserRouter>
+                                <Routes>
+                                    <Route path="/" element={<Hub/>}></Route>
+                                    <Route path="/store" element={<Store/>}></Route>
+                                    <Route path="/account/hub" element={<AccountHub/>}></Route>
+                                    <Route path="/account/hub/user/login" element={<UserLogin/>}></Route>
+                                    <Route path="/account/hub/dev/login" element={<DevLogin/>}></Route>
+                                    <Route path="/account/hub/user/register" element={<UserRegister/>}></Route>
+                                    <Route path="/account/hub/dev/register" element={<DevRegister/>}></Route>
+                                    <Route path="/store/basket" element={<Basket/>}></Route>
+                                    <Route path="/store/payment" element={<Payment/>}></Route>
+                                </Routes>
+                            </BrowserRouter>
+                        </BasketProvider>
                     </IdProvider>
                 </TypeProvider>
             </LoginProvider>
