@@ -117,4 +117,21 @@ const dropGame = async (did, gid)=>{
     return await devMapping.deleteGame(did, gid)
 }
 
-module.exports={logDev, setDev, addGame, getMyGames, getMyGame, modifyGame, dropGame}
+const getMySales = async(did)=>{
+    var sum=0
+    var num =0
+    values = await devMapping.getAllSales(did)
+    console.log(values)
+    for (const value of values)
+    {
+        for (const p of value.PURCHASEs)
+        {
+            sum = sum + p.SELLINGPRICE
+            num = num + 1
+        }
+    }
+    console.log(sum)
+    return {"TOTAL": sum, "NUMBER": num}
+}
+
+module.exports={logDev, setDev, addGame, getMyGames, getMyGame, modifyGame, dropGame, getMySales}

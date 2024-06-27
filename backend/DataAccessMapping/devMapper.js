@@ -2,6 +2,7 @@ const db = require("../DatabaseInitialization/sqliteInitializer")
 const {where} = require("sequelize");
 const dev = db.developer
 const game = db.game
+const purchase = db.purchase
 
 const createDev = async(data) =>
 {
@@ -47,7 +48,7 @@ const setGame = async(data) =>{
 const fetchMyGames = async(data) =>{
     try
     {
-        const games = await game.findAll({where:{"DEVELOPERId": data}})
+        const games = await game.findAll({where:{"DEVELOPERId": data, "REMOVED": false}})
         return games
     }
     catch
@@ -58,7 +59,7 @@ const fetchMyGames = async(data) =>{
 const fetchMyGame = async (dID, gID) =>{
     try
     {
-        const game1 = await game.findOne({where:{"id": gID}})
+        const game1 = await game.findOne({where:{"id": gID, "REMOVED": false}})
         console.log(game1.id)
         if (game1.DEVELOPERId == dID)
             return game1
@@ -72,7 +73,6 @@ const modifyGame = async (data, did, gid)=>{
     const game1= await fetchMyGame(did, gid)
     if (game1.success === undefined)
     {
-        console.log("JEJ")
         if (data.NAME)
         {
             game1.NAME=data.NAME
@@ -102,7 +102,8 @@ const deleteGame = async (did, gid) =>
     const game0=await fetchMyGame(did, gid)
     if (game0.success===undefined)
     {
-        game0.destroy()
+        game0.REMOVED=true
+        game0.save()
         return {success: true}}
     else
     {
@@ -110,5 +111,24 @@ const deleteGame = async (did, gid) =>
     }
 }
 
-module.exports={createDev, getDev, setGame, fetchMyGames, fetchMyGame, modifyGame, deleteGame}
+async function getAllSales(did) {
+    try {
+        const purchases = await game.findAll({
+            include: [
+                {
+                    model: purchase,
+                    attributes: ['SELLINGPRICE'],
+                },
+            ],
+            where: {
+                DEVELOPERId: did,
+            },
+        });
+        return purchases;
+    } catch (error) {
+        throw error;
+    }
+}
+
+module.exports={createDev, getDev, setGame, fetchMyGames, fetchMyGame, modifyGame, deleteGame, getAllSales}
 

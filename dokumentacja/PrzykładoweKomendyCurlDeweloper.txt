@@ -17,18 +17,21 @@ Pobierz dane wszystkich własnych gier:
 
 curl -X GET http://localhost:3000/dev/game/1 
 
-Pobierz dane poszczególnej danej gry:
+Pobierz dane konkretnej danej gry:
 
-curl -X GET http://localhost:3000/dev/game/1
+curl -X GET http://localhost:3000/dev/game/1/1
 
 Zmodyfikuj dane gry (możliwość zmiany każdego elementu poza DEVELOPERId):
 
 curl -X PUT -H "Content-Type: application/json" -d '{"NAME":"", "PRICE":12.555}' http://localhost:3000/dev/game/1/1
 
+Sprawdź sprzedaż gier danego dewelopera:
+
+curl -X GET http://localhost:3000/dev/sales/1
 
 Sprawdź sprzedaż danej gry:
 
-
+curl -X GET http://localhost:3000/dev/sales/1/1
 
 Wycofaj grę ze sprzedaży:
 

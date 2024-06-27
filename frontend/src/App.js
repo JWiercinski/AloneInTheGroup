@@ -13,6 +13,7 @@ import DevRegister from "./Pages/DevRegister";
 import BasketProvider from "./Providers/BasketProvider";
 import Basket from "./Pages/Basket";
 import Payment from "./Pages/Payment";
+import DevGames from "./Pages/DevGames";
 
 function App()
 {
@@ -34,6 +35,7 @@ function App()
                                     <Route path="/account/hub/dev/register" element={<DevRegister/>}></Route>
                                     <Route path="/store/basket" element={<Basket/>}></Route>
                                     <Route path="/store/payment" element={<Payment/>}></Route>
+                                    <Route path="/account/hub/dev/games" element={<DevGames/>}></Route>
                                 </Routes>
                             </BrowserRouter>
                         </BasketProvider>

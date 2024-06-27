@@ -7,6 +7,7 @@ import {BasketContext} from "../Providers/BasketProvider";
 function Store() {
     const [products, setProducts] = React.useState([]);
     const { basket, setBasket } = React.useContext(BasketContext);
+    const [mess, setMess] = React.useState("")
 
     const addToBasket = (product) => {
         const existingProductIndex = basket.findIndex(item => item.product.id === product.id);
@@ -28,7 +29,7 @@ function Store() {
                 const response = await axios.get('http://localhost:3000/products');
                 setProducts(response.data);
             } catch (error) {
-                console.error('Error fetching data: ', error);
+                setMess("Nie udało się połączyć z serwerem. Przepraszamy za utrudnienia.")
             }
         };
         fetchData();
@@ -38,7 +39,8 @@ function Store() {
                     <ButtonsTop/>
                     <LoggedInBar/>
                 <h1>Produkty</h1>
-                {products.map((product, index) => (
+                    <h1>{mess}</h1>
+                    {products && products.map((product, index) => (
                     <div key={index}>
                         <h2>{product.NAME}</h2>
                         <p>{product.DESCRIPTION}</p>

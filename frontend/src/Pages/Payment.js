@@ -50,8 +50,8 @@ function Payment(){
             var response = await axios.post("http://localhost:3000/user/purchase", data);
             if (response.problems === undefined) {
                 setInfo(`Sukces!`);
-                //localStorage.removeItem("basket");
-                //window.location.reload();
+                localStorage.removeItem("basket");
+                window.location.reload();
             }
             else{setInfo(response.problems)}
         } catch (error){

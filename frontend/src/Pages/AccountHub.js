@@ -15,7 +15,6 @@ function AccountHub() {
         const [isLoggedIn, setIsLoggedIn] = React.useState(false)
 
         React.useEffect(() => {
-                // Check conditions and update state variables
                 if (login === null || type === null || id === null || login === undefined || type === undefined || id === undefined) {
                         setUserLoggedIn(false);
                         setDevLoggedIn(false);
@@ -43,6 +42,7 @@ function AccountHub() {
                 <h2 hidden={userLoggedIn}>Konto deweloperskie</h2>
             <Link to="dev/register"><button hidden={isLoggedIn}>Zarejestruj się</button></Link>
             <Link to="dev/login"><button hidden={isLoggedIn}>Zaloguj się</button></Link>
+                <Link to="dev/games"><button hidden={!devLoggedIn}>Zarządzanie i sprzedaż</button></Link>
         </div>
 )
     ;
