@@ -14,6 +14,10 @@ import BasketProvider from "./Providers/BasketProvider";
 import Basket from "./Pages/Basket";
 import Payment from "./Pages/Payment";
 import DevGames from "./Pages/DevGames";
+import UserGames from "./Pages/UserGames";
+import DevGame from "./Pages/DevGame";
+import NewGame from "./Pages/NewGame";
+import ModifyGame from "./Pages/ModifyGame";
 
 function App()
 {
@@ -36,6 +40,10 @@ function App()
                                     <Route path="/store/basket" element={<Basket/>}></Route>
                                     <Route path="/store/payment" element={<Payment/>}></Route>
                                     <Route path="/account/hub/dev/games" element={<DevGames/>}></Route>
+                                    <Route path="/account/hub/user/games" element={<UserGames/>}/>
+                                    <Route path="/account/hub/dev/games/:gid" element={<DevGame/>}/>
+                                    <Route path="/account/hub/dev/newgame" element={<NewGame/>}></Route>
+                                    <Route path="/account/hub/dev/games/:gid/modify" element={<ModifyGame/>}/>
                                 </Routes>
                             </BrowserRouter>
                         </BasketProvider>

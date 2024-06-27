@@ -1,10 +1,10 @@
 import React from "react";
-import {LoginContext} from "../Providers/LoginProvider";
 import {TypeContext} from "../Providers/TypeProvider";
 import {IdContext} from "../Providers/IdProvider";
 import axios from "axios";
 import ButtonsTop from "../Components/buttonsTop";
 import LoggedInBar from "../Components/LoggedInBar";
+import {Link} from "react-router-dom";
 
 function DevGames() {
     const {type, setType} = React.useContext(TypeContext)
@@ -20,10 +20,12 @@ function DevGames() {
             try
             {
                 const response=await axios.get(`http://localhost:3000/dev/game/${id}`)
-                setProducts(response.data)
-                const moneh = await axios.get(`http://localhost:3000/dev/sales/${id}`)
-                setTotal(moneh.data.TOTAL)
-                setNumber(moneh.data.NUMBER)
+                if (response.data.failure === undefined) {
+                    setProducts(response.data)
+                    const moneh = await axios.get(`http://localhost:3000/dev/sales/${id}`)
+                    setTotal(moneh.data.TOTAL)
+                    setNumber(moneh.data.NUMBER)
+                }
             }
             catch
             {
@@ -49,7 +51,7 @@ function DevGames() {
                 <div key={index}>
                     <h2>{product.NAME}</h2>
                     <p>Cena: {product.PRICE} PLN</p>
-                    <button>Szczegóły</button>
+                    <Link to={`${product.id}`}><button>Szczegóły</button></Link>
                 </div>
             ))}
         </div>)

@@ -42,4 +42,10 @@ const getAllSales = async function (req, res)
     res.json(result)
 }
 
-module.exports={loginDev,registerDev,addGame, getDevGames, getDevSingleGame, modDevGame, pullGameBack, getAllSales}
+const getGameSales = async function (req, res)
+{
+    const result = await devService.getSingleGameSales(req.params.did, req.params.gid)
+    res.json(result)
+}
+
+module.exports={loginDev,registerDev,addGame, getDevGames, getDevSingleGame, modDevGame, pullGameBack, getAllSales, getGameSales}

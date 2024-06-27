@@ -30,7 +30,7 @@ function LoggedInBar()
         setId(null)
         setUserLoggedIn(false)
         setDevLoggedIn(false)
-        window.location.reload()
+        window.location.replace("/")
     }
     return (
         <div>

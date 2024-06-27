@@ -26,4 +26,10 @@ const handleTransaction = async function (req, res)
     }
 }
 
-module.exports={registerUsew, loginUser, handleTransaction}
+const returnBoughtGames = async function (req, res)
+{
+    resuly = await userService.getMyGames(req.params.uid)
+    res.json(resuly)
+}
+
+module.exports={registerUsew, loginUser, handleTransaction, returnBoughtGames}

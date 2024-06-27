@@ -39,10 +39,12 @@ function AccountHub() {
             <h2 hidden={devLoggedIn}>Konto użytkownika klasycznego</h2>
             <Link to="user/register"><button hidden={isLoggedIn}>Zarejestruj się</button></Link>
             <Link to="user/login"><button hidden={isLoggedIn}>Zaloguj się</button></Link>
+                <Link to="user/games"><button hidden={!userLoggedIn}>Zakupione klucze</button></Link>
                 <h2 hidden={userLoggedIn}>Konto deweloperskie</h2>
             <Link to="dev/register"><button hidden={isLoggedIn}>Zarejestruj się</button></Link>
             <Link to="dev/login"><button hidden={isLoggedIn}>Zaloguj się</button></Link>
                 <Link to="dev/games"><button hidden={!devLoggedIn}>Zarządzanie i sprzedaż</button></Link>
+                <Link to="dev/newgame"><button hidden={!devLoggedIn}>Utwórz nową grę</button></Link>
         </div>
 )
     ;

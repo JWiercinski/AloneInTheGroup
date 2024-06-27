@@ -72,11 +72,11 @@ const addGame = async (data)=>
             }
             else
             {
-                return ok
+                return {success: ok, problems: "Podane dane nie są poprawne"}
             }
         }
     }
-    return ok
+    return {success: ok, problems: "Nie podano wszystkich potrzebnych danych"}
 }
 
 const getMyGames = async(data) =>{
@@ -103,14 +103,6 @@ const modifyGame = async (data, did, gid)=>{
             data.PRICE = ""
         }
     }
-    if (data.RELEASEDATE)
-    {
-        cool2 = await utilityService.isDate(data.RELEASEDATE)
-        if (cool2 !== true)
-        {
-            data.RELEASEDATE=""
-        }
-    }
     return await devMapping.modifyGame(data, did, gid)}
 
 const dropGame = async (did, gid)=>{
@@ -121,7 +113,6 @@ const getMySales = async(did)=>{
     var sum=0
     var num =0
     values = await devMapping.getAllSales(did)
-    console.log(values)
     for (const value of values)
     {
         for (const p of value.PURCHASEs)
@@ -130,8 +121,25 @@ const getMySales = async(did)=>{
             num = num + 1
         }
     }
-    console.log(sum)
     return {"TOTAL": sum, "NUMBER": num}
 }
 
-module.exports={logDev, setDev, addGame, getMyGames, getMyGame, modifyGame, dropGame, getMySales}
+const getSingleGameSales = async (did, gid) =>{
+    var value=0
+    var number = 0
+    singletitle = await devMapping.getOneSales(did, gid)
+    if (singletitle.success === undefined) {
+        for (const prch of singletitle.PURCHASEs) {
+            value = value + prch.SELLINGPRICE
+            number = number + 1
+        }
+        return {"VALUE": value, "TALLY": number}
+    }
+    else
+    {
+        return singletitle
+    }
+
+}
+
+module.exports={logDev, setDev, addGame, getMyGames, getMyGame, modifyGame, dropGame, getMySales, getSingleGameSales}

@@ -99,4 +99,8 @@ const handlePurchase= async(data)=> {
         }
 }
 
-module.exports={addUser, logUser, verifyPrices, handlePurchase}
+const getMyGames = async (uid)=>{
+    return await userMapping.getBoughtGames(uid)
+}
+
+module.exports={addUser, logUser, verifyPrices, handlePurchase, getMyGames}

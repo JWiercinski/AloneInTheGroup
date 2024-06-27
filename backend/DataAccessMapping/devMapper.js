@@ -88,11 +88,6 @@ const modifyGame = async (data, did, gid)=>{
             game1.PRICE=data.PRICE
             game1.save()
         }
-        if (data.RELEASEDATE)
-        {
-            game1.RELEASEDATE=data.RELEASEDATE
-            game1.save()
-        }
     }
     return game1
 }
@@ -130,5 +125,28 @@ async function getAllSales(did) {
     }
 }
 
-module.exports={createDev, getDev, setGame, fetchMyGames, fetchMyGame, modifyGame, deleteGame, getAllSales}
+async function getOneSales(did, gid) {
+    try
+    {
+        const purchases = await game.findOne({
+            include: [
+                {
+                    model: purchase,
+                    attributes: ['SELLINGPRICE'],
+                },
+            ],
+            where: {
+                DEVELOPERId: did,
+                id: gid
+            },
+        });
+        return purchases;
+    }
+    catch
+    {
+        return {success: false}
+    }
+}
+
+module.exports={createDev, getDev, setGame, fetchMyGames, fetchMyGame, modifyGame, deleteGame, getAllSales, getOneSales}
 

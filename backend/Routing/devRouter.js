@@ -9,5 +9,5 @@ router.get("/game/:did/:gid", devController.getDevSingleGame)
 router.put("/game/:did/:gid", devController.modDevGame)
 router.delete("/game/:did/:gid", devController.pullGameBack)
 router.get("/sales/:did", devController.getAllSales)
-//router.get("/sales/:did/:gid", devController.getGameSales)
+router.get("/sales/:did/:gid", devController.getGameSales)
 module.exports=router

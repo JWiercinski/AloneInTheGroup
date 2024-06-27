@@ -34,14 +34,15 @@ const getUser = async(data) =>{
     }
 }
 
-const getBoughtGames = async(data) =>
+const getBoughtGames = async(uid) =>
 {
     try
     {
         const result = await purchase.findAll({
-            attributes: "GAMEKEY", include :[{
-                model: game, attributes: "NAME"
-            }], where: {"USERId": data.id}
+            include :[{
+                model: game, attributes: ["NAME"]
+            }], where: {"USERId": uid},
+            order: [["id", "DESC"]]
         })
         return result
     }
@@ -59,4 +60,4 @@ const createPurchase = async (Pdata) =>{
 return await purchase.create(Pdata)
 }
 
-module.exports = {createUser, getUser, createTransaction, createPurchase}
+module.exports = {createUser, getUser, createTransaction, createPurchase, getBoughtGames}
