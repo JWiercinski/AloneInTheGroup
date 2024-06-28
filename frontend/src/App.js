@@ -18,6 +18,7 @@ import UserGames from "./Pages/UserGames";
 import DevGame from "./Pages/DevGame";
 import NewGame from "./Pages/NewGame";
 import ModifyGame from "./Pages/ModifyGame";
+import NotFound from "./Pages/NotFound"
 
 function App()
 {
@@ -44,6 +45,7 @@ function App()
                                     <Route path="/account/hub/dev/games/:gid" element={<DevGame/>}/>
                                     <Route path="/account/hub/dev/newgame" element={<NewGame/>}></Route>
                                     <Route path="/account/hub/dev/games/:gid/modify" element={<ModifyGame/>}/>
+                                    <Route path="*" element={<NotFound/>}/>
                                 </Routes>
                             </BrowserRouter>
                         </BasketProvider>

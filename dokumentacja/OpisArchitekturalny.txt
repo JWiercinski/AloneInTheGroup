@@ -38,3 +38,5 @@ zarządzaniem.
 
 > Providers zajmuje się tworzeniem kontekstu aplikacji, który następnie 
 zostaje wykorzystany w całym obrębie aplikacji.
+
+Bezpośrednia nawigacja została zdefiniowana w pliku app.js.

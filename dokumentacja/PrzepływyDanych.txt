@@ -1,0 +1,29 @@
+Przepływy danych są inicjowane w aplikacji klienckiej - za pomocą biblioteki
+axios aplikacja kliencka przesyła żądania do aplikacji serwerowej,
+kierowane do odpowiedniego endpointu API.
+
+Endpointy są podzielone na trzy główne typy: user, dev i common. W 
+zależności od początkowej frazy url, żądania są przekazywane do 
+odpowiedniego routera - każdy dostępny tam endpoint wywołuje odpowiadającą
+funkcję zawartą w kontrolerach. Kontrolery zwyczajowo wywołują funkcję
+z warstwy serwisowej - gdy wymagane są szczegółowe weryfikacje bądź
+osobne założeniowo operacje, funkcja z serwisu może wywołać kolejne
+funkcje serwisowe, zwykle zawarte w pliku utilityService.js.
+
+Po zakończeniu ewentualcej weryfikacji, funkcja serwisowa wywołuje
+funkcję z warstwy DataAccessMapping, w której to następują odpowiednie
+operacje bazodanowe. Następnie, odpowiedź przekazywana jest w odwrotnym
+kierunku, z DataAccessMapping do Servicing, z Servicing do Controlling,
+skąd też przesyłana jest odpowiedź do aplikacji klienckiej, która za pomocą
+odpowiednich hooków zostaje załadowana do logiki renderowanego programu.
+
+Aplikacja serwerowa udostępnia 14 różnych endpointów, obsługujących
+żądania GET, POST, PUT oraz DELETE, w zależności od logiki operacji.
+
+Zwyczajowy schemat komunikacji:
+
+Klient |  			Serwer				   | Baza
+
+Axios -> Routing -> Controlling -> Servicing -> DataAccessMapping -> Baza -
+									  |
+Axios <- Routing <- Controlling <- Servicing <- DataAccessMapping <--------

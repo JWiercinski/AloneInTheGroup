@@ -3,6 +3,7 @@ import ButtonsTop from "../Components/buttonsTop";
 import axios from "axios";
 import LoggedInBar from "../Components/LoggedInBar";
 import {BasketContext} from "../Providers/BasketProvider";
+import {Link} from "react-router-dom";
 
 function Store() {
     const [products, setProducts] = React.useState([]);
@@ -51,6 +52,8 @@ function Store() {
                         <p></p>
                     </div>
                 ))}
+
+                    <Link to="/store/basket"><button>Koszyk</button></Link>
                 </div>
     )
 }

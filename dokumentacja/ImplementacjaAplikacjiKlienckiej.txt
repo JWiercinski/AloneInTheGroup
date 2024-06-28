@@ -1,0 +1,94 @@
+Aplikację kliencką cechuje wykonanie w technologii multi-page. Bazuje ona
+na przejściach zdefiniowanych wykorzystujących routing udostępniany w
+react-router-dom. W pliku app.js działa na powyższym schemacie:
+
+<BrowserRouter>
+         <Routes>
+               <Route path="url" element={<Element/>/>
+         </Routes>
+</BrowserRouter>
+
+Kluczowe z punktu implementacyjnego jest utworzenie kluczowych kontekstów
+obejmujących całą aplikację: kontekstu koszyka oraz logowania. Oba są
+zapisywane za pomocą localstorage, aby zapewnić, że nie zostaną wyczyszczone
+podczas odświeżania aplikacji. W app.js, są zdefiniowane tak, by okalały
+element BrowserRouter.
+
+Istotną kwestią projektową jest także udostępnianie użytkownikow właściwych
+obszarów, zależnie od ich roli. Zostało to osiągnięte za pomocą hooków
+useState oraz useContext. Przykładowo, wykorzystując typeContext, można
+zweryfikować czy dany użytkownik jest klientem czy deweloperem - co
+pozwala na ustawienie takiego stanu za pomocą useEfect.
+
+const {type, setType} = React.useContext(TypeContext)
+const [userLoggedIn, setUserLoggedIn]=React.useState(false)
+const [devLoggedIn, setDevLoggedIn]=React.useState(false)
+const [anyoneLoggedIn, setAnyoneLoggedIn]=React.useState(false)
+React.useEffect(() => {
+        if (type==="dev")
+        {
+            setDevLoggedIn(true)
+            setAnyoneLoggedIn(true)
+        }
+        else if (type==="user")
+        {
+            setUserLoggedIn(true)
+            setAnyoneLoggedIn(true)
+        }
+    },[login, type, userLoggedIn, devLoggedIn, anyoneLoggedIn])
+    
+Zastosowanie hooków pozwala także na ładowanie do logiki aplikacji elementów
+pobranych z serwera za pomocą wywołań funkcji z biblioteki axios.
+
+Funkcje te są używane zarówno w ramach useEffect, jak i oddzielnie, w
+ramach funkcji związanych z wysyłką danych formularzy - co widać na
+przykładzie zaczerpniętym z pliku ModifyGame.js.
+
+React.useEffect(()=>{
+        const fetchGameData= async()=>
+        {
+            try
+            {
+                const standardData = await axios.get(`http://localhost:3000/dev/game/${id}/${gid}`)
+                setProduct(standardData.data)
+            }
+            catch
+            {
+                setMess("Nie udało się połączyć z serwerem. Przepraszamy za utrudnienia")
+            }
+        }
+        if (type === "dev") {
+            setDev(true)
+            fetchGameData()
+        }
+        else{setMess("Ta strona dostępna jest tylko dla deweloperów aplikacji")}
+    },[type, id, gid])
+
+    const sendonsubmit = async (event) => {
+        event.preventDefault()
+        const data ={
+            DEVELOPERId: id,
+            NAME: name,
+            DESCRIPTION: desc,
+            PRICE: price}
+        try{
+            const response = await axios.put(`http://localhost:3000/dev/game/${id}/${gid}`, data)
+            if (response.data.problems !== undefined)
+            {
+                setMess(response.data.problems)
+            }
+            else
+            {
+                setMess("Udało się opublikować grę")
+                window.location.reload()
+            }
+        }
+        catch
+        {
+            setMess("Nie uzyskano połączenia z serwerem. Przepraszamy za niedogodności.")
+        }
+    }
+
+Aspektem wartym uwagi są reużywalne komponenty zdefiniowane w plikach 
+buttonsTop.js i LoggedInBar.js, które pozwalają na podstawową nawigację
+po serwisie oraz sprawdzenie jakie konto jest obecnie używane.

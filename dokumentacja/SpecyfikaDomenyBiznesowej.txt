@@ -1,0 +1,28 @@
+Aplikacja sprzedażowa jest aplikacją specyficzną, gdyż wymaga implementacji
+różnorodnych funkcjonalności dla samego, podstawowego działania.
+
+Konieczne jest rozróżnienie dwóch głównych typów potencjalnych użytkowników:
+klientów oraz deweloperów/sprzedawców. Ich wymagania same w sobie są
+skrajnie różne - klient potrzebuje możliwości dokonania zakupu (w tym za
+pomocą koszyków) oraz sprawdzenia zakupów (w tym przypadku - wymagany jest 
+także dostęp do zakupionych kluczy projektu), zaś dla sprzedawców nieodzowny
+jest moduł publikacji produktu oraz ewentualnej modyfikacji danych produktu.
+W niektórych przypadkach konieczne jest także wycofanie produktu z rynku.
+Ponadto, statystyki zakupów danych produktów pozwalają uzyskać wgląd w
+sytuację rynkową.
+
+W niniejszym projekcie wymaganie te zostały spełnione, aczkolwiek w wielu
+przypadkach w formie uproszczonej (co związane jest z jednoosobową 
+realizacją zadania). Bez zalogowania dostępne są: strona główna, strona
+sklepu oraz strona logowania. Możliwe jest dodanie produktu do koszyka,
+jednak sam zakup nie jest dostępny.
+
+Po zalogowaniu jako użytkownik klasyczny(klient), otwarty jest dostęp do
+koszyka, zakupu oraz,z portalu użytkownika, do zakupionych kluczy produktów.
+
+Po zalogowaniu jako deweloper, dostępne są, z portalu użytkownika,
+funkcjonalności publikacji gry w serwisie, sprawdzenia obecnie dostępnych
+gier danego dewelopera(wszystkich oraz pojedynczych), a także weryfikacji
+sprzedaży zarówno całego portfolio jak i poszczególnych produktów. Z widoku
+szczegółowego, udostępnione są także możliwości modyfikacji oraz wycofania
+produktu ze sprzedaży.
