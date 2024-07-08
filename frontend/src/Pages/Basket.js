@@ -4,10 +4,42 @@ import {BasketContext} from "../Providers/BasketProvider";
 import ButtonsTop from "../Components/buttonsTop";
 import LoggedInBar from "../Components/LoggedInBar";
 function Basket () {
-    const { basket } = React.useContext(BasketContext);
+    const { basket, setBasket } = React.useContext(BasketContext);
     const clearBasket = () => {
         localStorage.removeItem("basket")
         window.location.reload()
+    }
+
+    const reduceQuantity = (product) => {
+        const existingProductIndex = basket.findIndex(item => item.product.id === product.id);
+        if (existingProductIndex !== -1) {
+            const updatedBasket = [...basket];
+            const currentQuantity = updatedBasket[existingProductIndex].quantity;
+            if (currentQuantity > 1) {
+                updatedBasket[existingProductIndex] = {
+                    ...updatedBasket[existingProductIndex],
+                    quantity: updatedBasket[existingProductIndex].quantity-1
+                };
+            }
+            else
+            {
+                updatedBasket.splice(existingProductIndex, 1);
+            }
+            setBasket(updatedBasket);
+        }
+
+    }
+
+    const increaseQuantity=(product)=>{
+        const existingProductIndex = basket.findIndex(item => item.product.id === product.id);
+        if (existingProductIndex !== -1) {
+            const updatedBasket = [...basket];
+                updatedBasket[existingProductIndex] = {
+                    ...updatedBasket[existingProductIndex],
+                    quantity: updatedBasket[existingProductIndex].quantity+1
+                };
+            setBasket(updatedBasket)
+        }
     }
     const total = basket.reduce((accumulator, item) => {
         return accumulator + (item.product.PRICE * item.quantity);
@@ -23,6 +55,8 @@ function Basket () {
                     <h2>{item.product.NAME}</h2>
                     <p>Cena jednostkowa: {item.product.PRICE} PLN</p>
                     <p>Ilość: {item.quantity}</p>
+                    <button style={{backgroundColor:"red", color:"white"}} onClick={()=>reduceQuantity(item.product)}>-</button>
+                    <button style={{backgroundColor:"green", color:"white"}} onClick={()=>increaseQuantity(item.product)}>+</button>
                 </div>
             ))}
             <h2>Podsuma: {total} PLN</h2>

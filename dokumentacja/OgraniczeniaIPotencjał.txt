@@ -1,0 +1,26 @@
+Projekt, w związku z wyłącznie jednoosobowym wykonaniem, jest ograniczony
+wyłącznie do najistotniejszych funkcjonalności - w rezultacie, można go
+uznać za prototyp działającego serwisu internetowego.
+
+Potencjał projektu istnieje - jako że większość third-party vendors w sferze
+gier komputerowych operuje na tak zwanym "szarym rynku", istnienie
+autoryzowanego resellera (aplikacji o podobnym profilu co HumbleBundle,
+jednak skupiającym się na celach charytatywnych, a bezpośrednio na obniżeniu
+prowizji za sprzedaż (przykładowo, względem stawek serwisu Steam).
+
+Aby go jednak zrealizować, konieczne byłyby rozmaite, szeroko pojęte
+poprawki oraz rozszerzenia funkcjonalności.
+
+Obecnie, wiele elementów klienta React bazuje na localstorage, co nie jest
+rozwiązaniem szczególnie bezpiecznym przeciwko manipulacji. Także warto
+uwzględnić kwestię technologii - aplikacja została zbudowana na podstawie
+Create React App, która sama w sobie została wyparta przez nowsze, mniej
+zasobochłonne technologie reaktywne, jak Vite czy Next.
+
+Aplikacja posiada również bardzo prymitywną szatę graficzną, co na
+dzisiejsze standardy jest rozwiązaniem niewystarczającym.
+
+Z uwagi jednak na limitowany czas działania oraz nacisk na utworzenie
+jednolitej(wewnątrz projektu), spójnej wielowarstwowej architektury,
+projekt nie jest całkowicie bezpodstawny, a jego wartość jest szczególnie
+istotna w kontekście dalszego rozwoju umiejętności autora.

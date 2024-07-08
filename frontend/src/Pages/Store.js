@@ -38,6 +38,7 @@ function Store() {
     return (
                 <div className="Store">
                     <ButtonsTop/>
+                    <Link to="/store/basket"><button>Koszyk</button></Link>
                     <LoggedInBar/>
                 <h1>Produkty</h1>
                     <h1>{mess}</h1>
@@ -52,8 +53,6 @@ function Store() {
                         <p></p>
                     </div>
                 ))}
-
-                    <Link to="/store/basket"><button>Koszyk</button></Link>
                 </div>
     )
 }

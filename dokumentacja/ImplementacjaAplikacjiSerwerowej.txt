@@ -1,0 +1,90 @@
+Aplikacja serwerowa została wykonana w architekturze mikroserwisowej,
+w której odpowiedzi otrzymywane są po wysłaniu odpowiedniego zapytania na
+udostępnione endpointy. Architektura podzielona jest na indywidualne warstwy
+stanowiące kolejno: routery, kontrolery, serwisy, mapowanie danych oraz,
+częściowo oddzielnie - inicjalizację bazy danych.
+
+Kluczowe z funkcjonalnego punktu widzenia było zastosowanie biblioteki
+Sequelize, co pozwoliło na pracę z bazą danych bez konieczności
+wcześniejszego jej tworzenia - wszystkie potrzebne operacje zostały
+zrealizowane przez funkcje biblioteczne zgodnie z zaprogramowaną w projekcie
+logiką, przykładowo dla tabeli PURCHASEs:
+
+module.exports=(sequelize, Sequelize)=>{
+    const purchase = sequelize.define("PURCHASES",{
+        "GAMEKEY": {type: Sequelize.STRING, allowNull: false},
+        "SELLINGPRICE": {type: Sequelize.DECIMAL(10,2), allowNull: false},
+    })
+    return purchase
+}
+
+oraz w kodzie inicjalizacji bazy danych:
+
+db.purchase = require("./purchaseTableInitializer")(sequelize, Sequelize)
+db.transaction.hasMany(db.purchase)
+db.purchase.belongsTo(db.transaction, {foreignKey: {allowNull: false}})
+db.user.hasMany(db.purchase)
+db.purchase.belongsTo(db.user, {foreignKey: {allowNull: false}})
+db.game.hasMany(db.purchase)
+db.purchase.belongsTo(db.game, {foreignKey: {allowNull: false}})
+
+co pozwoliło na utworzenie zarówno klasycznych pól bazy danych, jak i
+elementów stanowiących Foreign Keys (w przypadku tabeli purchase).
+
+Baza danych została zaprojektowana z jedną tabelą stanowiącą przykład
+denormalizacji - jako że uzyskiwanie zakupionych przez użytkownika kluczy
+produktów jest jedną z najistotniejszych czynności, uznano że najlepszym
+rozwiązaniem będzie jak najszybsze załadowanie danych - zatem bez narzutu
+obiektu z tabeli TRANSACTIONs.
+
+Routing serwera został zrealizowany za pomocą biblioteki Express. Jego
+prosty przykład jest widoczny w kodzie commonRouter:
+
+var router = express.Router()
+router.get("/products", commonController.showAllGames)
+module.exports=router
+
+Zapytania są przekazywane do kodu kontrolera, który wywołuje odpowiednią
+funkcję z serwisu: zwykle w formie podobnej do:
+
+const getGameSales = async function (req, res)
+{
+    const result = await devService.getSingleGameSales(req.params.did, req.params.gid)
+    res.json(result)
+}
+
+która po zakończeniu działania zwraca wynik w formie json-a.
+
+Warstwa serwisowa posiada dwa typy funkcji - bezpośrednio wyzwalające
+pracę w warstwie dataAccessMapping, lub wyzwalające mikroserwis wewnętrzny.
+Przykładem zawierającym oba typy jest funkcja modifyGame z devService:
+
+const modifyGame = async (data, did, gid)=>{
+    if (data.PRICE) {
+        cool = await utilityService.isPrice(data.PRICE)
+        if (cool !== true) {
+            data.PRICE = ""
+        }
+    }
+    return await devMapping.modifyGame(data, did, gid)}
+    
+sprawdzającym czy element PRICE ma format ceny, modyfikującym ją w razie
+potrzeby do pustego obiektu, po czym wysyłającym dane do funkcji modifyGame
+z pliku devMapping.
+
+Warstwa devMapping z kolei bazuje na uzyskiwaniu danych z bazy i
+przekształcaniu ich na format obiektowy, zgodny z formatem json - bądź,
+jeśli istnieje taka potrzeba, zwracający obiekt informujący o braku sukcesu.
+
+const createDev = async(data) =>
+{
+    try
+    {
+        await dev.create(data)
+        return {success: true}
+    }
+    catch
+    {
+        return {success: false, problems: "Wystąpił błąd przy tworzeniu konta - prawdopodobnie istnieje już konto o tej nazwie"}
+    }
+}

@@ -60,7 +60,6 @@ const fetchMyGame = async (dID, gID) =>{
     try
     {
         const game1 = await game.findOne({where:{"id": gID, "REMOVED": false}})
-        console.log(game1.id)
         if (game1.DEVELOPERId == dID)
             return game1
         else
